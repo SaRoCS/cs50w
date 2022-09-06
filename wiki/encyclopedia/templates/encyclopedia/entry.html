@@ -1,0 +1,12 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% autoescape off %}
+        {{ page }}
+    {% endautoescape %}
+    <a href='{{ request.path }}?edit=true'>Edit this page.</a>
+{% endblock %}

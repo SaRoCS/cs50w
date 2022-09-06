@@ -1,0 +1,29 @@
+div{
+    margin: 20px;
+}
+.section{
+    border: solid lightgray 1px;
+    border-radius: 5px;
+    padding: 20px;
+}
+.form {
+    width: 100%;
+    height: 75px;
+
+}
+textarea {
+    border-color: lightgray;
+}
+.gray {
+    color: gray;
+}
+.likes {
+    width:2%;
+    height: 2%;
+}
+.center{
+    text-align: center;
+}
+.item{
+    margin-left: 50px;
+}

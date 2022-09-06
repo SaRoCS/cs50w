@@ -1,0 +1,17 @@
+textarea {
+    min-height: 400px;
+}
+.sender {
+    margin-right:5em;
+    font-weight: 700;
+}
+.time {
+    float:right; 
+    color:gray;
+}
+.email {
+    padding:5px;
+    margin:5px;
+    border:solid black 1px;
+    border-radius: 10px;
+}

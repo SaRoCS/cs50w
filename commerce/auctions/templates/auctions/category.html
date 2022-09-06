@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Category</h2>
+    {% for list in listings %}
+        {% if list.is_active %}
+            <div class="listing">
+                <h3>
+                    <a href="/listing/{{list.title}}">{{ list.title }}</a>
+                    {% if list.image %}
+                        <img class="right" src='{{ list.image }}'>
+                    {% endif %}
+                </h3>
+                <ul>
+                
+                    <li>{{ list.description }}</li>
+                    <li>{{ list.price }}</li>
+                    <li>Categories:
+                        {% for category in list.category %}
+                            {{ category }}.
+                        {% empty %}
+                            None
+                        {% endfor %}
+                    </li>
+                    <li class='sub'>Created: {{ list.date }}</li>
+                </ul>
+            </div>
+        {% else %}
+            <h3>No listings in this category</h3>
+        {% endif %}
+    {% empty %}
+        <h3>No listings in this category</h3>
+    {% endfor %}
+
+{% endblock %}

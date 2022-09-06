@@ -1,0 +1,13 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/posting.js' %}"></script>
+{% endblock %}
+{% block body %}
+    <form action='/edit?post={{ post.id }}' method="POST">
+        {% csrf_token %}
+        {{ form }}<br>
+        <input id="submit" class="btn btn-primary" type="submit">
+    </form>
+{% endblock %}

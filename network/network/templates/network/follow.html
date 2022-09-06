@@ -1,0 +1,59 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/like.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    {% for post in posts %}
+        <div class="section">
+            <h5 id="{{ post.id }}">{{ post.poster }}</h5>
+            {% if post.poster == request.user %}
+                <a href="/edit?post={{ post.id}}">Edit</a>
+            {% endif %}
+            <p>
+                {{ post.body }}<br>
+                <span class='gray'>{{ post.date }}</span><br>
+                {% if request.user in post.likes.all %}
+                    <span><img class="likes" src="{% static 'network/heart.jpg' %}"> {{post.like_num }}</span>
+                {% else %}
+                    <span><img class="likes" src="{% static 'network/heartO.jpg' %}"> {{post.like_num }}</span>
+                {% endif %}
+            </p>
+        </div>
+    {% empty %}
+        <h5>No Posts</h5>
+    {% endfor %}
+    {% if c > 1 %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ previous }}" tabindex="-1" aria-disabled="false">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                {% endif %}
+                {% for i in c_list %}
+                    {% if current == i %}
+                        <li class="page-item active"><a class="page-link" href="?=page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ next }}" tabindex="-1" aria-disabled="false">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    <h1>{{ listing.title }}</h1>
+    {% if listing.image %}
+        <img src="{{ listing.image }}">
+    {% endif %}
+    {% if listing.is_active %}
+        <h3>Current price: ${{ listing.price }}</h3>
+    {% else %}
+        {% if high.username %}
+            <h3>{{ high.username }} is the winner!</h3>
+        {% endif %}
+    {% endif %}
+    {% if user.is_authenticated %}
+        {% if user in listing.watchers.all %}
+            <h6><a href="{% url 'unwatch' title=listing.title %}">Remove from watchlist</a></h6>
+        {% else %}
+            <h6><a href='{% url "watch" title=listing.title %}'>Add to Watchlist</a></h6>
+        {% endif %}
+        <form action="/listing/{{ listing.title }}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Bid">
+        </form>
+    {% endif %}
+    <p>{{ listing.description }}</p>
+    <b>Categories:</b>
+    <ul>
+        <li>
+            {% for c in category %}
+                {{ c }}.
+            {% empty %}
+                None
+            {% endfor %}
+        </li>
+    </ul>
+    {% if listing.lister == request.user and listing.is_active %}
+        <a href='{% url "close" title=listing.title %}'>Close</a>
+    {% endif %}
+    {% if not listing.is_active %}
+        <p class='sub'>This listing is not active.</p>
+    {% endif %}
+    <p class='sub'>Listed by {{ listing.lister }}<br>Created {{ listing.date }}</p>
+    <h3>Comments</h3>
+    {% if user.is_authenticated %}
+        <form action="/comment/{{ listing.title }}", method="POST">
+            {% csrf_token %}
+            {{ comment }}
+            <input type='submit' value='Comment'>
+        </form>
+    {% endif %}
+    {% for c in comments %}
+        <div>
+            <p>{{ c.comment }}</p>
+            <p class=sub>{{ c.commenter }}</p>
+        </div>
+    {% empty %}
+        <div>No comments.</div>
+    {% endfor %}
+{% endblock %}

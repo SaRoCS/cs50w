@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <a class="dropdown-item", href='{% url "category" category="Clothing, Shoes, Jewelry & Watches" %}'>Clothing, Shoes, Jewelry & Watches</a>
+    <a class="dropdown-item", href='{% url "category" category="Books" %}'>Books</a>
+    <a class="dropdown-item", href='{% url "category" category="Movies, Music & Games" %}'>Movies, Music & Games</a>
+    <a class="dropdown-item", href='{% url "category" category="Electronics" %}'>Electronics</a>
+    <a class="dropdown-item", href='{% url "category" category="Home, Garden & Tools" %}'>Home, Garden & Tools</a>
+    <a class="dropdown-item", href='{% url "category" category="Toys" %}'>Toys</a>
+    <a class="dropdown-item", href='{% url "category" category="Handmade" %}'>Handmade</a>
+    <a class="dropdown-item", href='{% url "category" category="Sports" %}'>Sports</a>
+    <a class="dropdown-item", href='{% url "category" category="Outdoors" %}'>Outdoors</a>
+{% endblock %}
